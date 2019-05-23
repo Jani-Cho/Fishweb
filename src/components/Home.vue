@@ -41,12 +41,12 @@
         },
         mounted(){
             /* 成員列表 */
-            axios.post('/data/APITest/GetMember')
+            axios.post('http://www.henrychang.tw/APITest/GetMember')
             .then((resp) => {
                 this.members = JSON.parse(resp.data.content)
             });
             /* 作品類型 */
-            axios.post('/data/APITest/GetWorksType')
+            axios.post('http://www.henrychang.tw/APITest/GetWorksType')
             .then((resp) => {
                 this.works_List = JSON.parse(resp.data.content)
                 if(this.works_List.length = 9){

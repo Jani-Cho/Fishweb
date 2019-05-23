@@ -119,7 +119,7 @@
             }
         },
         mounted(){
-            axios.post('/data/APITest/GetMessageBoard')
+            axios.post('http://www.henrychang.tw/APITest/GetMessageBoard')
             .then((resp) => {
                 this.message_Lists = JSON.parse(resp.data.content)
                 console.log(this.message_Lists)
@@ -182,7 +182,7 @@
                 formData.append('content', this.new_Content)
                 formData.append('file', this.files)
 
-                axios.post('/data/APITest/AddMessageBoard',formData
+                axios.post('http://www.henrychang.tw/APITest/AddMessageBoard',formData
                 ).then((resp) => {
                     if(resp.data.result == '1'){
                         alert(resp.data.content);
@@ -206,7 +206,7 @@
 
             },
             message_Refesh(){
-                axios.post('/data/APITest/GetMessageBoard')
+                axios.post('http://www.henrychang.tw/APITest/GetMessageBoard')
                 .then((resp) => {
                     this.message_Lists = JSON.parse(resp.data.content)
                     console.log('更新成功',this.message_Lists)

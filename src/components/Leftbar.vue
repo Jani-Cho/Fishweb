@@ -64,7 +64,7 @@ export default {
             main_Nav.classList.remove('right')
         }
         /* 取得作品集類型 */
-        axios.post('/data/APITest/GetWorksType')
+        axios.post('http://www.henrychang.tw/APITest/GetWorksType')
         .then((resp) => {
             this.portfolio_List = JSON.parse(resp.data.content)
 

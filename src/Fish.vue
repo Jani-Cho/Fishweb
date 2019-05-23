@@ -57,7 +57,7 @@ export default {
       
       /* 取得作品集 */
 
-      axios.post('/data/APITest/GetWorksProjectList',{
+      axios.post('http://www.henrychang.tw/APITest/GetWorksProjectList',{
       })
       .then((resp) => {
           this.workProjects = JSON.parse(resp.data.content)
@@ -74,7 +74,7 @@ export default {
       if(type == 1){
         this.modal = true
         var qs = require('qs');
-        axios.post('/data/APITest/GetWorksDetailList',qs.stringify({
+        axios.post('http://www.henrychang.tw/APITest/GetWorksDetailList',qs.stringify({
           'ProjectId': data.project_Id
         })
         )
@@ -92,7 +92,7 @@ export default {
     },
     change_Projects(id){
       var qs = require('qs');
-      axios.post('/data/APITest/GetWorksProjectList',qs.stringify({
+      axios.post('http://www.henrychang.tw/APITest/GetWorksProjectList',qs.stringify({
         'typeId': id
       })
       )

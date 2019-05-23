@@ -46,7 +46,7 @@ export default {
         contact_Post(){
             var qs = require('qs');
 
-            axios.post('/data/APITest/ContactUs',qs.stringify(
+            axios.post('http://www.henrychang.tw/APITest/ContactUs',qs.stringify(
             {
                 'name': this.form_Name,
                 'address': this.form_Email,
