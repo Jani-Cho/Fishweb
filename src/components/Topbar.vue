@@ -40,7 +40,6 @@ export default {
     },
     methods:{
         top_Open(){
-            console.log('click')
             this.topOpen = !this.topOpen
             this.$emit('topbar')
         },

@@ -1,10 +1,11 @@
 <template>
     <div id="portfolio" class="main_Block">
+        <!-- 單一作品 -->
         <div id="content_Detail" class="content_Detail" >
             <div class="back" @click="back_Content"><i class="fas fa-arrow-left"></i>回作品列表</div>
             <div class="image">
 
-            <img :src="'http://www.henrychang.tw/images/work/'+ projectData.Picture" alt="">
+                <img v-if="projectData.Picture" :src="'http://www.henrychang.tw/images/work/'+ projectData.Picture" alt="">
             </div>
             <div class="data">
 
@@ -15,15 +16,17 @@
                 <img class="p_Image" :id="'p_Img_'+pic.Id"  @click="one_Click" @dblclick="project_Modal(projectData.Id, key)" :src="'http://www.henrychang.tw/images/work/'+ pic.Picture" v-for="(pic, key) in projectPics">
             </div>
         </div>
+        <!-- 作品列表     -->
         <div id="content_Box" class="content_Box">
-
+            <h2 v-if="workProjects.length !== 0">{{workProjects[0].Code}}</h2>
             <div class="p_Box none" v-if="workProjects.length == 0">
                 <div class="p_Content">
                     <h3>暫無相關作品</h3>
                 </div>
             </div>
-            <div class="p_Box" v-for="w in workProjects" @click="getProjectPics(w)">
-                <div class="p_Img">
+            <div class="p_Box" v-for="w in workProjects">
+                
+                <div class="p_Img"  @click="getProjectPics(w)">
                     <img :src="'http://www.henrychang.tw/images/work/' + w.Picture" alt="">
                 </div> 
                 <div class="p_Content">
@@ -54,30 +57,23 @@
     export default {
         data(){
             return{
-                projects_List:[],
                 projectPics:[],
                 projectData: [],
                 projectModal: true
-
-
             }
         },
         props:['workProjects'],
         mounted(){
-
-            /* 作品類型 */
-            axios.post('/data/APITest/GetWorksProjectList',{
-            })
-            .then((resp) => {
-                console.log(resp)
-                // this.projects_List = JSON.parse(resp.data.content)
-                // console.log('ss',this.works_List)
-            });
+            if(this.$route.fullPath !== '/portfolio'){
+                this.$emit('changeProjects',this.$route.query.id)
+            }else if(this.$route.fullPath == '/portfolio'){
+                this.$emit('changeProjects')
+            }
         },
         methods:{
             getProjectPics(data){
                 this.projectData = data;
-                console.log('專案id', data.Id)
+
                 let open_Detail = document.getElementById('content_Detail')
                 open_Detail.style.display = "block"
 
@@ -90,14 +86,10 @@
                 )
                 .then((resp) => {
                     if(resp.data.result == '1'){
-                        // alert(resp.data.content);
                         this.projectPics = JSON.parse(resp.data.content)
-                        // console.log('作品圖片', this.projectPics)
 
                     }else{
-                        // alert('無圖片');
                         return
-
                     }
 
                 })
@@ -129,7 +121,7 @@
                     project_Key: key
                 }
                 
-                this.$emit('topbar',project_Data)
+                this.$emit('topbar', 1, project_Data)
             }
         }
     }

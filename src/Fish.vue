@@ -2,7 +2,7 @@
     <div id="main">
         <leftbar v-on:changeProjects="change_Projects"></leftbar>
         <topbar v-on:topbar="topbarOpen" ></topbar>
-        <router-view :workProjects="workProjects" v-on:topbar="topbarOpen"></router-view>
+        <router-view :workProjects="workProjects" v-on:topbar="topbarOpen" v-on:changeProjects="change_Projects"></router-view>
 
         <!-- 彈窗遮罩 -->
         <div class="modal-mask" v-if="topbar"></div>
@@ -54,7 +54,6 @@ export default {
   mounted(){
 
       let routepath= this.$route
-      console.log(routepath)
       
       /* 取得作品集 */
 
@@ -62,7 +61,6 @@ export default {
       })
       .then((resp) => {
           this.workProjects = JSON.parse(resp.data.content)
-          console.log('作品集',this.workProjects)
       });
   },
   components: {
@@ -71,9 +69,9 @@ export default {
 
   },
   methods:{
-    topbarOpen(data){
-      console.log('project data',data)
-      if(data){
+    topbarOpen(type, data){
+      // console.log('project data',data)
+      if(type == 1){
         this.modal = true
         var qs = require('qs');
         axios.post('/data/APITest/GetWorksDetailList',qs.stringify({
@@ -85,9 +83,7 @@ export default {
           this.picData = this.picDatas[data.project_Key]
           this.picKey = data.project_Key
           this.picNum = this.picDatas.length
-          console.log('圖片data all',this.picDatas)
-          console.log('圖片data',this.picData)
-          console.log('圖片key',this.picKey)
+
 
         });
         
@@ -95,7 +91,6 @@ export default {
       this.topbar = !this.topbar
     },
     change_Projects(id){
-      console.log('觸發',id)
       var qs = require('qs');
       axios.post('/data/APITest/GetWorksProjectList',qs.stringify({
         'typeId': id
@@ -103,7 +98,6 @@ export default {
       )
       .then((resp) => {
           this.workProjects = JSON.parse(resp.data.content)
-          console.log('作品集',this.workProjects)
       });
     },
     close_Modal(){

@@ -43,6 +43,8 @@ export default {
             /* 作品集分類項目 */
             portfolio_List: [
             ],
+            portfolio_sList: [
+            ],
             workProjects:[]
         }
     },
@@ -61,11 +63,11 @@ export default {
             leftbar_Circle.classList.add('none')
             main_Nav.classList.remove('right')
         }
-        /* 取得作品集列表 */
+        /* 取得作品集類型 */
         axios.post('/data/APITest/GetWorksType')
         .then((resp) => {
             this.portfolio_List = JSON.parse(resp.data.content)
-            console.log('作品列表',this.portfolio_List)
+
         });
 
     
@@ -88,6 +90,15 @@ export default {
     },
     methods:{
         changeProjects(id){
+            this.$router.push(
+                {
+                    path: '/portfolio',
+                    query: {
+                        id: id
+                    }
+                }
+            )
+
             let window_Width = document.body.clientWidth
             if(this.now_id != null){
 

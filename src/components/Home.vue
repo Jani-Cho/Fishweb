@@ -20,7 +20,7 @@
                 </div>
                 <div class="home_Works">
                     <div class="before"><img src="../assets/dots3.png" alt=""></div>
-                    <div class="work_Ball" v-for="w in works_List">
+                    <div class="work_Ball" v-for="w in works_List" @click="work_List(w.Id)">
                         {{w.Name}}
                     </div>
 
@@ -34,13 +34,8 @@
     export default {
         data(){
             return{
-                members:{
-                    Pic: '',
-                    Name: '',
-                    Intro: ''
-                },
-                works_List:[
-                ],
+                members:'',
+                works_List:'',
 
             }
         },
@@ -49,9 +44,6 @@
             axios.post('/data/APITest/GetMember')
             .then((resp) => {
                 this.members = JSON.parse(resp.data.content)
-                // this.members_List.Pic = 'http://www.henrychang.tw/upload/Members/'+ members.Picture
-                // this.members_List.Name = members.Name
-                // this.members_List.Intro = members.Content
             });
             /* 作品類型 */
             axios.post('/data/APITest/GetWorksType')
@@ -72,11 +64,25 @@
                                 {'id': 11})
 
                 }
-                console.log('ss',this.works_List)
             });
         },
         methods:{
+            /* 跳轉至portfolio */
+            work_List(id){
+                console.log('類型id',id)
+                if(id){
 
+                    this.$router.push(
+                        {
+                            path: '/portfolio',
+                            query: {
+                                id: id
+                            }
+                        }
+                    )
+                }
+
+            }
         }
     }
 </script>

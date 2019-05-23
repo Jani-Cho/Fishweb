@@ -1,7 +1,7 @@
 html, body{
     height: 100%;;
     background-color: #F5F5F5;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 .modal-mask {
     position: fixed;
@@ -10,13 +10,26 @@ html, body{
     z-index: 10000;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.445);
+    background-color: rgba(0,0,0,.7);
 }
 #main{
     width: 100%;
     font-family: 'Noto Sans TC', sans-serif;
     background-color: #F5F5F5;
     display: inline-flex;
+}
+.img_Box{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.img_Box img{
+    width: 100%;
+    height: 40px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    
 }
 .topbar{
     display: none;
@@ -25,7 +38,7 @@ html, body{
     width: 100vw;
     height: 35px;
     background:#384747;
-    z-index: 999;
+    z-index: 10001;
     text-align: center;
 }
 .topbar i.top{
@@ -280,6 +293,7 @@ html, body{
     left: 50px;
 }
 .work_Ball:hover{
+    cursor: pointer;
     transform: translateY(-5%);
 }
 .work_Ball:nth-of-type(2){
@@ -346,6 +360,13 @@ html, body{
     height: 90vh;
     overflow: scroll;
 }
+#portfolio .content_Box h2{
+    margin: 40px auto;
+    width: 80%;
+    max-width: 800px;
+    color: #5A7271;
+    font-size: 24px;
+}
 #portfolio .content_Detail{
     width: 90%;
     height: 90vh;
@@ -393,14 +414,28 @@ html, body{
 .content_Detail .images img{
     margin: 20px;
 }
-.content_Modal{
-    z-index: 10001;
+.content_Modal,
+.message_Modal{
+    z-index: 10003;
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+.message_Modal{
+    width: 90vw;
+    height: 85vh;
+    position: fixed;
+}
+.m_Modal-box{
+    width: 500px;
+    max-width: 80%;
+}
+.m_Modal-box label{
+    color: #fff;
+}
+.message_Modal i.cancel,
 .content_Modal i.cancel{
     position: fixed;
     right: 30px;
@@ -443,7 +478,8 @@ html, body{
 }
 .project_Data{
     padding: 30px 10%;
-    font-size: 24px;
+    font-size: 20px;
+    line-height: 1.5;
 }
 #leftbar{
     z-index: 999;
@@ -457,6 +493,9 @@ html, body{
     margin: 40px auto;
     height: 250px;
     /* box-shadow: 3px 3px 5px #838890; */
+}
+.p_Box.none{
+    background-color: unset;
 }
 .p_Img{
     flex:1;
@@ -493,36 +532,62 @@ html, body{
 
 #guestbook .content_Box{
     display: flex;
+    position: relative;
 }
 .message{
     margin: 20px;
     
 }
+
+.message_Add{
+    color: #5A7271;
+    position: absolute;
+    top: 0;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #F5F5F5;
+}
+.message_Add i{
+    margin-right: 10px;
+}
 .message_Lists{
-    flex: 6;
+    flex: 7;
     font-family: 'Avenir';
     overflow-y: scroll;
-    height: 90vh;
-    padding-right: 20px;
+    overflow-x: hidden;
+    height: 80vh;
+    padding-right: 60px;
 }
 .m_Lists:before{
     content: '';
     display: block;
     position: absolute;
-    top: 60px;
     left: 100px;
     width: 1px;
-    height: 90%;
+    height: 95%;
     background-color: #98A6A5;
 
 }
 
-.h_Main,
+
 .m_Main{
-    /* display: inline-block;
-    vertical-align: middle; */
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
 }
-.m_Title{
+.m_Main.pic{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.m_Time-phone{
+    color: #98A6A5;
+    font-size: 14px;
+}
+.m_Title,
+.m_Time-phone{
     text-align: right;
     font-style: italic;
 }
@@ -531,6 +596,7 @@ html, body{
     position: relative;
     margin-bottom: 20px;
 }
+
 .m_Time{
     position: absolute;
     left: -100px;
@@ -539,23 +605,33 @@ html, body{
     font-size: 14px;
     margin-bottom: 10px;
 }
-@media (min-width: 992px){
-.m_Time:after{
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    background-color: #4F6463;
-    border-radius: 50%;
-    position: absolute;
-    right: -11px;
-    top: 5px;
+@media (min-width: 1200px){
+    .message_Add{
+        display: none;
+    }
 }
+@media (min-width: 992px){
+    .m_Time:after{
+        content: '';
+        display: block;
+        width: 5px;
+        height: 5px;
+        background-color: #4F6463;
+        border-radius: 50%;
+        position: absolute;
+        right: -11px;
+        top: 5px;
+    }
+    .m_Time-phone{
+        display: none;
+    }
+    
+
 }
 .m_List img{
     width: 100%;
-    -webkit-clip-path: circle(35% at 50% 50%);
-    clip-path: circle(35% at 50% 50%);
+    height: 90px;
+    object-fit: cover;
 
 }
 .m_List h3{
@@ -563,13 +639,26 @@ html, body{
     color: #5A7271;
     font-weight: bold;
 }
-.m_List p{
+.m_Content{
     font-size: 18px;
     color: #747E8B;
     font-weight: lighter;
     margin-top: 10px;
+    margin-left: 30px;
+    position: relative;
 }
-
+.m_Content .marks.before,
+.m_Content .marks.after{
+    color: #98A6A5;
+    font-size: 36px;
+}
+.m_Content .marks.before{
+    top: -5px;
+    left: -20px;
+}
+.m_Content .marks.after{
+    transform: translate(10%, -10%);
+}
 .message_Form{
     flex: 5;
     padding: 50px;
@@ -582,7 +671,7 @@ html, body{
 }
 @media (max-width: 1200px){
     .main_Block{
-        overflow: scroll;
+        /* overflow: scroll; */
     }
     .home_Member {
         margin: 50px;
@@ -607,7 +696,7 @@ html, body{
     .message {
         margin: 50px;
         height: 80vh;
-        width: 50vw;
+        width: 60vw;
     }
     .message_Lists:before{
         left: 130px;
@@ -617,6 +706,14 @@ html, body{
 
         top: 100px;
         height: 350px;
+    }
+    .m_Lists:before{
+        top: 0px;
+        left: 80px;
+        height: 100%;
+    }
+    .m_Lists{
+        position: relative;
     }
 
 }
@@ -770,7 +867,11 @@ input:focus, textarea:focus{
     .leftbar_List{
         width: 150px;
     }
-    
+        .m_Title{
+        margin: 15px 0 5px;
+        color: #98A6A5;
+
+    }
 
     .main_Block{
         position: absolute;
@@ -778,6 +879,8 @@ input:focus, textarea:focus{
         right: 0;
     }
     .message_Form,
+    .m_Lists:before,
+    .m_Time,
     .message_Lists:before{
         display: none;
     }
@@ -785,13 +888,15 @@ input:focus, textarea:focus{
         margin: 0;
         padding: 40px;
     }
+    .m_Title{
+        margin: 15px 0 5px;
+        color: #98A6A5;
 
+    }
     .m_List{
         margin: 30px 5px;
     }
-    .m_Main{
-        margin-left: -15px;
-    }
+
     .m_Time{
         right: 0;
         left: unset;
@@ -896,7 +1001,7 @@ input:focus, textarea:focus{
 @media (max-width: 768px){
     html, body{
         display: flex;
-        overflow: scroll;
+        /* overflow: scroll; */
         /* justify-content: center;
         align-items: center; */
     }
@@ -908,6 +1013,12 @@ input:focus, textarea:focus{
         top: 35px;
         width: 100vw;
     }
+    #guestbook.main_Block{
+        left: 4vw;
+        top: 35px;
+        width: 90vw;
+    }
+
     #contact .title{
         margin-left: 0;
         margin-right: 0;
@@ -933,16 +1044,14 @@ input:focus, textarea:focus{
     .p_Img{
         height: 350px;
     }
+    #nav_Main,
     .p_Link{
         display: none;
     }
     .p_pLink{
         cursor: pointer;
     }
-    .m_Title{
-        margin: 15px 0;
 
-    }
     #leftbar{
         display: inline-flex;
         left: -150px;
@@ -1107,10 +1216,10 @@ label[name=file_Img]{
     display: inline-flex;
     align-items: center;
 }
-.form_Item.file img{
+/* .form_Item.file img{
 
     width: 50px;
     height: auto;
     -webkit-clip-path: circle(35% at 50% 50%);
     clip-path: circle(50% at 50% 50%);
-}
+} */
