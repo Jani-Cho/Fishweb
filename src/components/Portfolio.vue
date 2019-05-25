@@ -3,17 +3,21 @@
         <!-- 單一作品 -->
         <div id="content_Detail" class="content_Detail" >
             <div class="back" @click="back_Content"><i class="fas fa-arrow-left"></i>回作品列表</div>
-            <div class="image">
-
-                <img v-if="projectData.Picture" :src="'http://www.henrychang.tw/images/work/'+ projectData.Picture" alt="">
-            </div>
             <div class="data">
 
-            <span class="chip">{{projectData.Title}}</span>
+                <span class="chip">{{projectData.Title}}</span>
                 <h2>{{projectData.Title}}</h2>
             </div>
-            <div class="images">
-                <img class="p_Image" :id="'p_Img_'+pic.Id"  @click="one_Click" @dblclick="project_Modal(projectData.Id, key)" :src="'http://www.henrychang.tw/images/work/'+ pic.Picture" v-for="(pic, key) in projectPics">
+            <div style="display: flex">
+
+                <div class="image">
+
+                    <img v-if="projectData.Picture" :src="'http://www.henrychang.tw/images/work/'+ projectData.Picture" alt="">
+                </div>
+
+                <div class="images">
+                    <img class="p_Image" :id="'p_Img_'+pic.Id" @click="project_Modal(projectData.Id, key)" :src="'http://www.henrychang.tw/images/work/'+ pic.Picture" v-for="(pic, key) in projectPics">
+                </div>
             </div>
         </div>
         <!-- 作品列表     -->
@@ -36,17 +40,20 @@
                     <a class="p_pLink" :href="w.Url" target="_blank"><i class="fas fa-link"></i></a>
                     <a class="p_pLink" :href="w.Url" target="_blank"><i class="fas fa-arrow-circle-down"></i></a>
                     </h3>
+                    <div class="p_Link" v-if="w.Engineer">
+                        <h4>協作者：{{w.Engineer}}</h4>
+                    </div>
                     <div class="p_Link" v-if="w.UrlType == 1">
                         <h4>網站連結：<a :href="w.Url" target="_blank">{{w.Url}}</a></h4>
                         <h4>連結次數：{{w.ClickCount}}</h4>
-                        <h4>下載連結：無</h4>
-                        <h4>下載次數：無</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 2">
-                        <h4>網站連結：無</h4>
-                        <h4>連結次數：無</h4>
                         <h4>下載連結：<a :href="w.Url" target="_blank">按此下載</a></h4>
                         <h4>下載次數：{{w.ClickCount}}</h4>
+                    </div>
+                    <div class="p_Link" v-if="w.UrlType == 3">
+                        <h4>網站連結：目前無連結</h4>
+                        <h4>連結次數：{{w.ClickCount}}</h4>
                     </div>
                 </div>
             </div>

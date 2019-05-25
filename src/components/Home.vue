@@ -12,9 +12,9 @@
                     <div class="h_Main m-content" style="flex:5">
                         <h2>{{members.Name}}</h2>
                         <p>
-                            <span class="marks before">“</span>
+                            <!-- <span class="marks before">“</span> -->
                             {{members.Content}}
-                            <span class="marks after">”</span>
+                            <!-- <span class="marks after">”</span> -->
                         </p>
                     </div>
                 </div>
