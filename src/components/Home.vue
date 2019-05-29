@@ -1,7 +1,8 @@
 <template>
     <div id="home" class="main_Block">
         <div class="content_Box">
-            <div style="margin: 100px auto; padding-bottom: 50px;">
+            <div clss="home_Page">
+                <!-- 成員介紹 -->
 
                 <div class="home_Member">
                     <div class="h_Main m-img" style="flex:3">
@@ -18,12 +19,12 @@
                         </p>
                     </div>
                 </div>
+                <!-- 作品類型 -->
                 <div class="home_Works">
                     <div class="before"><img src="../assets/dots3.png" alt=""></div>
-                    <div class="work_Ball" v-for="w in works_List" @click="work_List(w.Id)">
+                    <div class="work_Ball" :class="{ active: w.Name }"v-for="w in works_List" @click="work_List(w.Id)">
                         {{w.Name}}
                     </div>
-
                 </div>
             </div>
         </div>
@@ -61,7 +62,7 @@
 
                 }else if(this.works_List.length = 11){
                             this.works_List.push(
-                                {'id': 11})
+                                {'id': 12})
 
                 }
             });
@@ -69,9 +70,7 @@
         methods:{
             /* 跳轉至portfolio */
             work_List(id){
-                console.log('類型id',id)
                 if(id){
-
                     this.$router.push(
                         {
                             path: '/portfolio',

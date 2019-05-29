@@ -12,6 +12,21 @@ html, body{
     height: 100%;
     background-color: rgba(0,0,0,.7);
 }
+/* “”寫法 */
+.marks{
+    font-family: 'Copperplate';
+    font-size: 45px;
+    color: #5A7271;
+    position: absolute;
+
+}
+.marks.before{
+    left: -35px;
+    top: -15px;
+}
+.marks.after{
+    transform: translate(-50%, -20%);
+}
 #main{
     width: 100%;
     font-family: 'Noto Sans TC', sans-serif;
@@ -75,18 +90,7 @@ html, body{
     background-color: rgba(238, 230, 230, 0.377);
     /* font-size: 18px; */
 }
-/* .top_List li{
-    flex: 1;
-    text-align: center;
-    padding: 15px 0;
-}
-.top_List li:hover,
-.top_List li.active{
-    color: #384747;
-    cursor: pointer;
-    background-color: rgba(238, 230, 230, 0.377);
-    font-size: 18px;
-} */
+
 .top_List li i{
     display: block;
     font-size: 20px;
@@ -166,25 +170,19 @@ html, body{
     color: #DBD9B5;
     font-weight: bolder;
 }
-.nav_List li{
-    display: flex;
+.p_list,
+.nav_List li h3{
+    display: table;
     cursor: pointer;
 }
-.nav_List li:hover,
-.nav_List li.active{
+.p_list:hover,
+.p_list.active,
+.nav_List li h3:hover,
+.nav_List li h3.active{
     color: #DBD9B5;
-    
+    font-size: 18px;
 }
-.nav_List li:hover:before,
-.nav_List li.active:before{
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 1px;
-    background-color: #DBD9B5;
-    align-self: center;
-    margin-right: 5px;
-}
+
 
 .main_Block{
     height: 100vh;
@@ -203,6 +201,15 @@ html, body{
     }
 }
 
+/* 首頁區塊 */
+.home_Page{
+    margin: 100px auto; 
+    padding-bottom: 50px;
+}
+#home .content_Box{
+    height: 90vh;
+    width: 80%;
+}
 .home_Member{
     margin: 50px 70px 50px 150px;
     display: flex;
@@ -233,10 +240,7 @@ html, body{
     right: 0;
     top: 0;
 }
-#home .content_Box{
-    height: 90vh;
-    width: 80%;
-}
+
 .h_Main h2{
     color: #5A7271;
     font-size: 22px;
@@ -245,26 +249,10 @@ html, body{
 .h_Main p{
     color: #747E8B;
     line-height: 1.5;
-    /* margin-top: 20px; */
     white-space: pre-line;
-    /* text-align: justify; */
-    /* text-indent: 35px; */
     position: relative;
 }
-.marks{
-    font-family: 'Copperplate';
-    font-size: 45px;
-    color: #5A7271;
-    position: absolute;
 
-}
-.marks.before{
-    left: -35px;
-    top: -15px;
-}
-.marks.after{
-    transform: translate(-50%, -20%);
-}
 .h_Main .img{
     width: 125px;
     height: 125px;
@@ -278,6 +266,7 @@ html, body{
 .m-img{
     max-width: 160px;
 }
+
 .work_Ball{
     width: 80px;
     height: 80px;
@@ -292,7 +281,7 @@ html, body{
     text-align: center;
     left: 50px;
 }
-.work_Ball:hover{
+.work_Ball.active:hover{
     cursor: pointer;
     transform: translateY(-5%);
 }
@@ -348,10 +337,7 @@ html, body{
     left: 450px;
     top: 100px;
 }
-/* #home,
-#portfolio{
-    padding: 40px;
-} */
+
 #portfolio{
     z-index: 1;
 }
@@ -534,6 +520,9 @@ html, body{
     margin: 15px 0px;
     font-size: 18px;
 
+}
+.p_list{
+    /* display: table; */
 }
 .chip{
     display: inline-block;
@@ -890,11 +879,6 @@ input:focus, textarea:focus{
     .leftbar_List{
         width: 150px;
     }
-        .m_Title{
-        margin: 15px 0 5px;
-        color: #98A6A5;
-
-    }
 
     .main_Block{
         position: absolute;
@@ -910,9 +894,11 @@ input:focus, textarea:focus{
     .message{
         margin: 0;
         padding: 40px;
+        margin-top: 40px;
+        padding-top: 0;
     }
     .m_Title{
-        margin: 15px 0 5px;
+        /* margin: 15px 0 5px; */
         color: #98A6A5;
 
     }
@@ -931,6 +917,7 @@ input:focus, textarea:focus{
         height: 45px;
         bottom: 0;
         top: unset;
+        background-color: #fff;
     }
     .nav_List{
         margin-left: 20px;
