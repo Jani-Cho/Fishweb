@@ -109,7 +109,7 @@ export default {
     /* 關閉彈窗與遮罩 */
     close_Modal(){
       this.mask = false
-      this.modal = false
+      this.picModal = false
     },
     /* 前一作品圖 */
     last_Pic(){

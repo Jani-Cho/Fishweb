@@ -41,7 +41,7 @@ export default {
     methods:{
         top_Open(){
             this.topOpen = !this.topOpen
-            this.$emit('topbar')
+            this.$emit('mask')
         },
 
     }

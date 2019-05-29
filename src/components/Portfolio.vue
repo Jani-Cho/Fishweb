@@ -44,7 +44,7 @@
                         <h4>協作者：{{w.Engineer}}</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 1">
-                        <h4>網站連結：<a :href="w.Url" target="_blank" @click="addClick(w.Id)">{{w.Url}}</a></h4>
+                        <h4>網站連結：<a :href="w.Url" target="_blank" @click="addClick(w.Id)">{{w.Url.substr(0,20)}}...</a></h4>
                         <h4>連結次數：{{w.ClickCount}}</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 2">

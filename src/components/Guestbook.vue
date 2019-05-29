@@ -26,9 +26,9 @@
                             <!-- <p>{{m.Email}}</p> -->
                         <!-- <p class="m_Content">
                         <p class="m_Title">{{m.Title}}</p> -->
-                        <div class="m_Time-phone">
+                        <!-- <div class="m_Time-phone">
                             {{m.CreateTime.substr(0,10)}} {{m.CreateTime.substr(11,5)}}
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
