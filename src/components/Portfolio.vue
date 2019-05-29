@@ -5,7 +5,7 @@
             <div class="back" @click="back_Content"><i class="fas fa-arrow-left"></i>回作品列表</div>
             <div class="data">
 
-                <span class="chip">{{projectData.Title}}</span>
+                <span class="chip">{{projectData.Type}}</span>
                 <h2>{{projectData.Title}}</h2>
             </div>
             <div style="display: flex">
@@ -44,11 +44,11 @@
                         <h4>協作者：{{w.Engineer}}</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 1">
-                        <h4>網站連結：<a :href="w.Url" target="_blank">{{w.Url}}</a></h4>
+                        <h4>網站連結：<a :href="w.Url" target="_blank" @click="addClick(w.Id)">{{w.Url}}</a></h4>
                         <h4>連結次數：{{w.ClickCount}}</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 2">
-                        <h4>下載連結：<a :href="w.Url" target="_blank">按此下載</a></h4>
+                        <h4>下載連結：<a :href="w.Url" target="_blank" @click="addClick(w.Id)">按此下載</a></h4>
                         <h4>下載次數：{{w.ClickCount}}</h4>
                     </div>
                     <div class="p_Link" v-if="w.UrlType == 3">
@@ -65,12 +65,13 @@
         data(){
             return{
                 projectPics:[],
-                projectData: [],
+                projectData: [], /* 單一作品資料 */
                 projectModal: true
             }
         },
         props:['workProjects'],
         mounted(){
+            /* 判斷網址是否帶參數，若無則回傳全部作品 */
             if(this.$route.fullPath !== '/portfolio'){
                 this.$emit('changeProjects',this.$route.query.id)
             }else if(this.$route.fullPath == '/portfolio'){
@@ -78,13 +79,16 @@
             }
         },
         methods:{
+            /* 單一作品專案瀏覽 */
             getProjectPics(data){
                 this.projectData = data;
 
-                let open_Detail = document.getElementById('content_Detail')
-                open_Detail.style.display = "block"
+                /* 顯示作品專案內容 */
+                let open_Detail = document.getElementById('content_Detail');
+                open_Detail.style.display = "block";
 
-                document.getElementById('content_Box').style.overflow = "hidden"
+                /* 隱藏作品專案列表 */
+                document.getElementById('content_Box').style.overflow = "hidden";
                 
                 var qs = require('qs');
                 axios.post('http://www.henrychang.tw/APITest/GetWorksDetailList',qs.stringify({
@@ -93,7 +97,7 @@
                 )
                 .then((resp) => {
                     if(resp.data.result == '1'){
-                        this.projectPics = JSON.parse(resp.data.content)
+                        this.projectPics = JSON.parse(resp.data.content);
 
                     }else{
                         return
@@ -101,34 +105,40 @@
 
                 })
             },
+            /* 返回作品列表 */
             back_Content(){
                 let open_Detail = document.getElementById('content_Detail');
                 open_Detail.style.display = "none";
-                document.getElementById('content_Box').style.overflow = "scroll"
+                document.getElementById('content_Box').style.overflow = "scroll";
+
+                /* 作品資料清空 */
                 this.projectPics = [];
             },
-            one_Click(id){
-
-                var p_Imgs = document.getElementsByClassName('p_Image');//数组
-                var p_Imgs_L = p_Imgs.length;
-                for(var i = 0;i < p_Imgs_L;i++){
-                    p_Imgs[i].classList.remove('hover')
-                }
-
-                let img_Click = document.getElementById(id.target.id)
-                img_Click.classList.add('hover')
-                if( img_Click !==  id.target){
-                    img_Click.classList.remove('hover')
-                }
-                
-            },
+            /* 開啟作品圖片 */
             project_Modal(id, key){
                 let project_Data = {
-                    project_Id: id,
-                    project_Key: key
+                    project_Id: id, /* 圖片Id */
+                    project_Key: key /* 圖片key值 */
                 }
                 
-                this.$emit('topbar', 1, project_Data)
+                this.$emit('mask', 1, project_Data)
+            },
+            /* 點擊次數 */
+            addClick(id){
+
+                var qs = require('qs');
+                axios.post('http://www.henrychang.tw/APITest/AddClickCount',qs.stringify({
+                    "ProjectId": id
+                })
+                )
+                .then((resp) => {
+                    if(resp.data.result == '1'){
+
+                    }else{
+                        return
+                    }
+
+                })
             }
         }
     }
