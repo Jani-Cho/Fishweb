@@ -14,9 +14,9 @@
             <ul v-if="portfolio" class="nav_List">
                 <h2>- 作品集 -</h2>
                 <li v-for="item in portfolio_List">
-                    <h3 :id="'p_list'+item.Id" @click="changeProjects(item.Id)" >{{item.Name}}</h3>
+                    <h3 :id="'p_list'+item.Id" @click="changeProjects(item.Id)" :class="activeId == 'active'+item.Id ? 'active':''">{{item.Name}}</h3>
                     <ul :id="item.Id" v-for="p in portfolio_sList" v-if="p.TypeId == item.Id">
-                        <li class="p_list" @click="changeCodeType(p.Id, p.TypeId)" :id="'p_slist'+p.Id">- {{p.Name}}</li>
+                        <li class="p_list" @click="changeCodeType(p.Id, p.TypeId)" :id="'p_slist'+p.Id">  - {{p.Name}}</li>
                     </ul>
                 </li>
             </ul>
@@ -32,6 +32,7 @@
 export default {
     data(){
         return{
+            activeId: null,/* 判斷作品集參數ID */
             portfolio: false,/* 作品集導覽列 */
             now_id: null,/* 現在作品類型Id */
             now_sid: null,/* 現在作品子類型Id */
@@ -58,36 +59,52 @@ export default {
             this.portfolio = true
             main_Nav.classList.add('right')
             leftbar_Circle.classList.remove('none')
-
         }else{
             this.portfolio = false
             leftbar_Circle.classList.add('none')
             main_Nav.classList.remove('right')
         }
+
         /* 取得作品集類型 */
         axios.post('http://www.henrychang.tw/APITest/GetWorksType')
         .then((resp) => {
             this.portfolio_List = JSON.parse(resp.data.content)
-
         });
-
-
     
     },
     watch:{
         $route (to, from){
             var main_Nav = document.getElementById('nav_Main');
             var leftbar_Circle = document.getElementById('leftbar_Circle');
+
             if (this.$route.path == '/portfolio'){
                 this.portfolio = true
                 main_Nav.classList.add('right')
                 leftbar_Circle.classList.remove('none')
 
+                /* 從首頁點擊項目進入作品集頁面時，側邊欄要顯示active */
+                if(this.$route.query.id){
+                    this.activeId = 'active'+this.$route.query.id
+                    
+                    /* 取得第二層作品集類型 */
+                    var qs = require('qs');
+                    axios.post('http://www.henrychang.tw/APITest/GetCodeTypeList',qs.stringify({
+                        'typeId': this.$route.query.id
+                    })
+                    )
+                    .then((resp) => {
+                        this.portfolio_sList = JSON.parse(resp.data.content)
+                    });
+             
+                }
+
             }else{
                 this.portfolio = false
                 leftbar_Circle.classList.add('none')
                 main_Nav.classList.remove('right')
+                this.portfolio_sList = ""
             }
+
         }
     },
     methods:{
